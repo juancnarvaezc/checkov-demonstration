@@ -1,0 +1,14 @@
+# Emulador local de Azure para la demo (sin nube real, sin costos).
+# Guia de Terraform con floci-az: https://floci.io/floci-az/terraform/
+services:
+  floci-az:
+    image: floci/floci-az:latest
+    container_name: floci-az
+    ports:
+      - "4577:4577"
+    environment:
+      # Obligatorio: el provider azurerm descubre la nube por HTTPS.
+      FLOCI_AZ_TLS_ENABLED: "true"
+    volumes:
+      # Persiste el certificado autofirmado entre reinicios (evita volver a confiar en el).
+      - ./floci-data:/app/data
