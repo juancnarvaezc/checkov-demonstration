@@ -1,7 +1,5 @@
-# -----------------------------------------------------------------------------
-# Arquitectura basica de demostracion: VM Linux con su red virtual y NSG.
-# Nunca se despliega en Azure real: el provider apunta a floci-az (providers.tf).
-# -----------------------------------------------------------------------------
+# Arquitectura básica de demostración: VM Linux con su red virtual y NSG.
+# No se despliega realmente (el provider apunta a floci-az, ver providers.tf).
 
 # Resource Group
 resource "azurerm_resource_group" "demo" {
@@ -9,7 +7,7 @@ resource "azurerm_resource_group" "demo" {
   location = var.location
 }
 
-# Virtual Network + Subnet
+# Virtual Network
 resource "azurerm_virtual_network" "demo" {
   name                = "vnet-checkov-demo"
   address_space       = ["10.0.0.0/16"]
@@ -17,6 +15,7 @@ resource "azurerm_virtual_network" "demo" {
   resource_group_name = azurerm_resource_group.demo.name
 }
 
+# Subnet
 resource "azurerm_subnet" "demo" {
   name                 = "snet-checkov-demo"
   resource_group_name  = azurerm_resource_group.demo.name
@@ -31,7 +30,7 @@ resource "azurerm_network_security_group" "demo" {
   resource_group_name = azurerm_resource_group.demo.name
 }
 
-# ERROR 2/3 de la demo: regla de SSH abierta a todo Internet.
+# ERROR 1/3 de la demo: regla de SSH abierta a todo Internet.
 resource "azurerm_network_security_rule" "ssh" {
   name                        = "Allow-SSH-Inbound"
   priority                    = 1001
@@ -40,13 +39,13 @@ resource "azurerm_network_security_rule" "ssh" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = "Internet" # <-- ERROR: cualquier IP de Internet puede intentar conectarse
+  source_address_prefix       = "Internet" # <- ERROR: cualquier IP de Internet puede intentar conectarse
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.demo.name
   network_security_group_name = azurerm_network_security_group.demo.name
 }
 
-# ERROR 3/3 de la demo: regla RDP (escritorio remoto) abierta a todo Internet.
+# ERROR 2/3 de la demo: regla RDP (escritorio remoto) abierta a todo Internet.
 resource "azurerm_network_security_rule" "rdp" {
   name                        = "Allow-RDP-Inbound"
   priority                    = 1002
@@ -55,7 +54,7 @@ resource "azurerm_network_security_rule" "rdp" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "3389"
-  source_address_prefix       = "Internet" # <-- ERROR: escritorio remoto expuesto a Internet
+  source_address_prefix       = "Internet" # <- ERROR: escritorio remoto expuesto a Internet
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.demo.name
   network_security_group_name = azurerm_network_security_group.demo.name
@@ -79,7 +78,7 @@ resource "azurerm_network_interface" "demo" {
   }
 }
 
-# ERROR 1/3 de la demo: VM con autenticacion por contrasena.
+# ERROR 3/3 de la demo: VM con autenticación por contraseña.
 resource "azurerm_linux_virtual_machine" "demo" {
   name                = "vm-checkov-demo"
   location            = azurerm_resource_group.demo.location
@@ -88,7 +87,7 @@ resource "azurerm_linux_virtual_machine" "demo" {
   admin_username      = var.admin_username
 
   admin_password                  = var.admin_password
-  disable_password_authentication = false # <-- ERROR: permite ataques de fuerza bruta
+  disable_password_authentication = false # <- ERROR: permite ataques de fuerza bruta
 
   allow_extension_operations = false
   network_interface_ids      = [azurerm_network_interface.demo.id]
