@@ -30,7 +30,7 @@ resource "azurerm_network_security_group" "demo" {
   resource_group_name = azurerm_resource_group.demo.name
 }
 
-# ERROR 1/3 de la demo: regla de SSH abierta a todo Internet.
+# ERROR 2/3 de la demo: regla de SSH abierta a todo Internet.
 resource "azurerm_network_security_rule" "ssh" {
   name                        = "Allow-SSH-Inbound"
   priority                    = 1001
@@ -45,7 +45,7 @@ resource "azurerm_network_security_rule" "ssh" {
   network_security_group_name = azurerm_network_security_group.demo.name
 }
 
-# ERROR 2/3 de la demo: regla RDP (escritorio remoto) abierta a todo Internet.
+# ERROR 3/3 de la demo: regla RDP (escritorio remoto) abierta a todo Internet.
 resource "azurerm_network_security_rule" "rdp" {
   name                        = "Allow-RDP-Inbound"
   priority                    = 1002
@@ -78,7 +78,7 @@ resource "azurerm_network_interface" "demo" {
   }
 }
 
-# ERROR 3/3 de la demo: VM con autenticación por contraseña.
+# ERROR 1/3 de la demo: VM con autenticación por contraseña.
 resource "azurerm_linux_virtual_machine" "demo" {
   name                = "vm-checkov-demo"
   location            = azurerm_resource_group.demo.location
