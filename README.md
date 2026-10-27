@@ -151,7 +151,7 @@ Esto crea y destruye 9 recursos en el emulador floci-az, sin tocar Azure real ni
 ## Rama de trabajo y tag
 
 - La rama `test` contiene el estado inicial inseguro.
-- El tag `demo-rota` permite restaurar ese estado inicial para repetir la demostración cuantas veces sea necesario.
+- El tag `demo-rota` permite restaurar ese estado inicial para repetir la demostración cuantas veces sea necesario. Para ello, se usa `git reset --hard demo-rota`.
 
 ## Detalles técnicos
 
