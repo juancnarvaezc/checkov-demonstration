@@ -104,7 +104,7 @@ Corrección:
 
 `203.0.113.0/24` es un rango de documentación ([RFC 5737](https://doi.org/10.17487/RFC5737])). En un entorno real se usaria el CIDR de la red de administración o una IP unica (/32).
 
-## Como ejecutar la demostración
+## Cómo ejecutar la demostración
 
 ### Requisitos previos
 
@@ -151,14 +151,14 @@ Esto crea y destruye 9 recursos en el emulador floci-az, sin tocar Azure real ni
 ## Rama de trabajo y tag
 
 - La rama `test` contiene el estado inicial inseguro.
-- El tag `demo-rota` permite restaurar ese estado inicial para repetir la demostracion cuantas veces sea necesario.
+- El tag `demo-rota` permite restaurar ese estado inicial para repetir la demostración cuantas veces sea necesario.
 
-## Detalles tecnicos
+## Detalles técnicos
 
-- Proveedor Terraform: `hashicorp/azurerm` version `~> 4.0`.
-- Maquina virtual: `Standard_B1s` con Ubuntu 22.04 LTS (tier gratuito de Azure).
+- Proveedor Terraform: `hashicorp/azurerm` versión `~> 4.0`.
+- Máquina virtual: `Standard_B1s` con Ubuntu 22.04 LTS (tier gratuito de Azure).
 - Emulador: `floci/floci-az:latest` en el puerto 4577 con TLS habilitado.
-- Checkov: version 3.3.29 local / 3.3.30 en GitHub Actions.
+- Checkov: versión 3.3.29 local / 3.3.30 en GitHub Actions.
 
 ## Equipo
 
