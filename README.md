@@ -1,6 +1,6 @@
 # checkov-demonstration
 
-![Terraform 1.16.0](https://img.shields.io/badge/Terraform-1.16.0-7B42BC?logo=terraform)
+![Terraform >= 1.6.0](https://img.shields.io/badge/Terraform-%3E%3D1.6.0-7B42BC?logo=terraform)
 
 Demostración de seguridad de infraestructura como código. El propósito es analizar con Checkov una configuración de Terraform que contenga errores de seguridad, explicar los hallazgos, corregirlos y repetir el análisis para mostrar el resultado. Todo se realiza localmente, sin desplegar recursos en la nube ni generar costos.
 
